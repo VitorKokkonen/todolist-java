@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class ManipuladorArquivo {
+
     public static void lerArquivo(String nomeArquivo) throws IOException {
         BufferedReader buffRead = new BufferedReader(new FileReader(nomeArquivo));
 
@@ -23,7 +25,9 @@ public class ManipuladorArquivo {
     }
 
     public static void escreverArquivo(String nomeArquivo) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nomeArquivo));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nomeArquivo, true));
+        ArrayList<String> tasks = new ArrayList<String>();
+
         String linha = "";
 
         Scanner in = new Scanner(System.in);
@@ -31,9 +35,13 @@ public class ManipuladorArquivo {
         System.out.println("Digite algo para adicionar");
 
         linha = in.nextLine();
+        tasks.add(linha);
 
-        bufferedWriter.write(linha + "\n");
-        bufferedWriter.newLine();
+        for (String task : tasks) {
+            bufferedWriter.append(task + "\n");
+        }
+
         bufferedWriter.close();
+        in.close();
     }
 }
